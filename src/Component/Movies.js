@@ -1,8 +1,9 @@
 import React from 'react';
 import {Card} from 'react-bootstrap';
 import Rate from './Rate'
+import WithLoading from './WithLoader'
 
-export default function Movies(props) {
+function Movies(props) {
     return (
         <div>
         
@@ -24,3 +25,5 @@ export default function Movies(props) {
 </div> 
 
     </div> )}
+
+export default WithLoading(Movies)
