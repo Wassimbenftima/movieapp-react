@@ -1,26 +1,44 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { movielist } from "./Component/file";
+import Movies from "./Component/Movies";
+import "./App.css";
+import Search from "./Component/Search";
+import Addmovie from "./Component/Addmovie";
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = {
+    movielist: movielist,
+    nameFilter:"",
+    ratingFilter:0
+  };
+  addmovies = newmovies =>
+    this.setState({
+      movielist: [...this.state.movielist, newmovies]
+    });
+  
+    filterdMovie=x=>{
+      this.setState({
+        nameFilter:x
+      });
+    };
+
+    searchByRate = x => {
+      this.setState({
+        ratingFilter:x
+      })
+    }
+
+    
+
+  render() {
+    return (
+      <div className="App">
+        <Search filterdMovie={this.filterdMovie} searchByRate={this.searchByRate}/>
+        <Movies bf={this.state.movielist.filter((el)=>(el.title.toLowerCase().includes(this.state.nameFilter)  &&  (el.rating >= this.state.ratingFilter)) )} />
+        <Addmovie addmovies={this.addmovies} />
+      </div>
+    );
+  }
+
 }
-
 export default App;
